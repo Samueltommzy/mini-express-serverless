@@ -8,7 +8,7 @@ class DBConnection {
         this._connect();
     }
     _connect() {
-        mongoose.connect(config.DB_URI,{ 
+        mongoose.connect(config.databaseUrl,{ 
             useNewUrlParser: true,
             useUnifiedTopology:true,
             useCreateIndex:true,
