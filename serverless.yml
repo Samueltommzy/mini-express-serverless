@@ -1,0 +1,33 @@
+service: mini-express-serverless-service
+app: mini-express-serverless-app
+
+provider:
+  apiGateway:
+    binaryMediaTypes:
+      - '*/*'
+  name: aws
+  profile: Administrator
+  runtime: nodejs12.x
+  versionFunctions: false
+  description: Test Lambda application with express
+  stage: dev
+  region: eu-west-2
+  memorySize: 512
+  deploymentBucket:
+    name : miniapp-artifacts
+  deploymentPrefix: miniapp
+functions:
+  mini-express-app:
+    handler: lambda.handler
+    name: mini-express-lambda
+    # optimize:
+    #   minify : false
+    events : 
+      - http:
+          path: api/v1/{proxy+}
+          method: any
+          cors: true
+          private: false
+plugins:
+  - serverless-offline
+  - serverless-webpack
